@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Auth::routes();
@@ -24,7 +24,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route:: get ('/test', function () {
-    return view('dashboard');
+    return view('auth.admin_reset_password');
 })->name('test');
 
 
