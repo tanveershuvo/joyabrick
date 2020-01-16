@@ -24,10 +24,5 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route:: get ('/test', function () {
-    return view('auth.admin_reset_password');
+    return view('dashboard');
 })->name('test');
-
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');

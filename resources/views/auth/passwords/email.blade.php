@@ -41,7 +41,7 @@
 
                 <div class="input-group mb-3">
 
-                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}"  autocomplete="email" autofocus>
+                    <input id="email" type="email" placeholder="Email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}"  autocomplete="email" autofocus>
 
                     <div class="input-group-append">
                         <div class="input-group-text">
