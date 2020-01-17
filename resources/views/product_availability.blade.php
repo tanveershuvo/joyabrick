@@ -1,0 +1,59 @@
+@extends('layouts.admin_layout')
+
+@section('page_title')
+    <title>BFMS Employee</title>
+    @endsection
+@section('title')
+
+    @endsection
+@section('breadcrumb_list')
+    <li class="breadcrumb-item active">Employee</li>
+    @endsection
+@section('content')
+	<section class="content">
+      <div class="row">
+        <div class="col-12"
+          <div class="card">
+            <div class="card-header">
+				<h3 class="btn btn-primary" style="background-color:ash">ADD PRODUCT/ EDIT PRODUCT/ PRODUCT AVAILABILITY:</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+              <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+				  <th>PRODUCT NAME</th>
+  				  <th>PRODUCT RATE</th>
+  				  <th>AMOUNT OF BRICKS</th>
+  				  <th>ADD AMOUNT</th>
+  				  <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td>Trident</td>
+                  <td>InternetExplorer 4.0</td>
+                  <td>Win 95+</td>
+                  <td> 4</td>
+                  <td>X</td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+				 <th>PRODUCT NAME</th>
+    			 <th>PRODUCT RATE</th>
+    			 <th>AMOUNT OF BRICKS</th>
+    			 <th>ADD AMOUNT</th>
+    			 <th>Action</th>
+                </tr>
+                </tfoot>
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+      <!-- /.row -->
+    </section>
+
+    @endsection
