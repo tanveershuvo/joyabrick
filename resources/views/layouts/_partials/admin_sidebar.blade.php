@@ -39,7 +39,7 @@
                 </li>
 				<!--Employee Details links -->
 				<li class="nav-item has-treeview">
-					<a href="#" class="nav-link">
+					<a href="{{ url('/employee_details') }}" class="nav-link {{ Request::is('employee_details') ? 'active' : '' }}">
 					  <i class="nav-icon fas fa-id-card"></i>
 					  <p>
 						Employee Details
@@ -48,7 +48,7 @@
 					</a>
 					<ul class="nav nav-treeview">
 					  <li class="nav-item">
-						<a href="{{ url('/assign_empl') }}" class="nav-link {{ Request::is('assign_empl') ? 'active' : '' }}">
+						<a href="{{ url('/employee_details') }}" class="nav-link {{ Request::is('employee_details') ? 'active' : '' }}">
 						  <i class="far fa-user nav-icon"></i>
 						  <p>Assign Employee</p>
 						</a>

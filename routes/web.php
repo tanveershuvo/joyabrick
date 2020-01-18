@@ -31,9 +31,11 @@ Route:: get ('/season', function () {
     return view('season_detail');
 })->name('season');
 
-Route:: get ('/assign_empl', function () {
+Route:: get ('/employee_details', function () {
     return view('assign_employee');
-})->name('assign_empl');
+})->name('employee_details');
+
+Route::resource('addemployee','EmployeeDetailController');
 
 Route:: get ('/employee_Unpaid', function () {
     return view('employee_Unpaid_Salary');
