@@ -1,6 +1,6 @@
 @extends('layouts.admin_layout')
 @section('public_css')
-
+  <meta name="_token" content="{{csrf_token()}}" />
     <!-- DataTables -->
     <link rel="stylesheet" href="{{asset('adminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.css')}}">
     @endsection
@@ -29,38 +29,27 @@
                     <table id="example2" class="table table-bordered table-striped">
                         <thead>
                         <tr>
-                            <th>Employee Name</th>
-                            <th>Employee email</th>
-                            <th>Employee Phone</th>
-                            <th>Designation</th>
-                            <th>Salary</th>
-                            <th>Address</th>
-                            <th>Action</th>
-                            <th>Resigned</th>
+                            <th>name</th>
+                            <th>email</th>
+                            <th>phone</th>
+                            <th>designation</th>
+                            <th>salary</th>
+                            <th>address</th>
+                            <th>action</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>Trident</td>
-                            <td>Internet Explorer 4.0 </td>
-                            <td>Win 95+</td>
-                            <td> 4</td>
-                            <td>X</td>
-                            <td>Y</td>
-                            <td><a class="btn btn-info btn-sm"  href="#" role="button" > <i class="fas fa-edit" ></i>EDIT </a></td>
-                            <td><a class="btn btn-danger btn-sm"  href="#" role="button" > <i class="fas fa-trash-alt" ></i>EDIT </a></td>
-                        </tr>
+
                         </tbody>
                         <tfoot>
                         <tr>
-                            <th>Employee Name</th>
-                            <th>Employee email</th>
-                            <th>Employee Phone</th>
-                            <th>Designation</th>
-                            <th>Salary</th>
-                            <th>Address</th>
-                            <th>Action</th>
-                            <th>Resigned</th>
+                            <th>name</th>
+                            <th>email</th>
+                            <th>phone</th>
+                            <th>designation</th>
+                            <th>salary</th>
+                            <th>address</th>
+                            <th>action</th>
                         </tr>
                         </tfoot>
                     </table>
@@ -92,34 +81,33 @@
                                     <label for="employeeName :">Employee Name :</label>
                                 </div>
                                 <div class="error col-md-9">
-                                    <input type="text" id="employee_name" class="form-control" placeholder="Enter Name">
+                                    <input type="text" id="employee_name" name="employee_name" class="form-control" placeholder="Enter Name">
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <div class="col-md-3">
                                     <label for="employeeEmail">Employee email :</label>
                                 </div>
-                                <div class="col-md-9">
-                                    <input type="email" class="form-control"  placeholder="Enter email">
+                                <div class="error col-md-9">
+                                    <input type="email" id="email"  name="email" class="form-control"  placeholder="Enter email">
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <div class="col-md-3">
                                     <label for="Employee Phone">Employee Phone :</label>
                                 </div>
-                                <div class="col-md-9">
-                                <input type="email" class="form-control"  placeholder="Enter Phone Number">
+                                <div class="error col-md-9">
+                                <input type="text" id="phone"  name="phone" class="form-control"  placeholder="Enter Phone Number">
                                 </div>
                            </div>
                             <div class="row mb-3">
                                 <div class="col-md-3">
                                     <label for="status" >Designation :</label>
                                 </div>
-                                <div class="col-md-9">
-                                    <select class="form-control">
-                                        <option>Select from here</option>
-                                        <option value="">Manager</option>
-                                        <option value="">Staff</option>
+                                <div class="error col-md-9">
+                                    <select class="form-control" id="designation" name="designation" >
+                                        <option value="Manager">Manager</option>
+                                        <option value="Staff">Staff</option>
                                     </select>
                                 </div>
                             </div>
@@ -127,8 +115,8 @@
                                 <div class="col-md-3">
                                     <label for="status" >Salary :</label>
                                 </div>
-                                <div class="col-md-9">
-                                    <input type="email" class="form-control"  placeholder="Enter Salary">
+                                <div class="error col-md-9">
+                                    <input type="text" class="form-control" id="salary" name="salary" placeholder="Enter Salary">
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -136,7 +124,7 @@
                                     <label for="status" >Address :</label>
                                 </div>
                                 <div class="error col-md-9">
-                                    <input type="email" class="form-control"  placeholder="Enter Address">
+                                    <input type="text" class="form-control" id="address" onkeyup="ok();" name="address" placeholder="Enter Address">
                                 </div>
                             </div>
 
@@ -162,13 +150,47 @@
     <script src="{{asset('adminLTE/dist/js/demo.js')}}"></script>
     <script>
         //to stack all form data in a variable
-        function form(){
+
+                var table = '';
+                 $(function () {
+                   $.ajaxSetup({
+                   headers: {
+                       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                   }
+                   });
+                   table = $('#example2').DataTable({
+                   processing: true,
+                   serverSide: true,
+                   beforeSend: function() {
+                    $('.loader').show();
+                   },
+                   complete: function(){
+                      $('.loader').hide();
+                   },
+                   ajax: "{{ route('addemployee.index') }}",
+                   columns: [
+                     {data: 'name', name: 'name'},
+                     {data: 'email', name: 'email'},
+                     {data: 'phone', name: 'phone'},
+                     {data: 'designation', name: 'designation'},
+                     {data: 'salary', name: 'salary'},
+                     {data: 'address', name: 'address'},
+                     {data: 'action', name: 'action', orderable: false, searchable: false},
+                   ]
+                   });
+                 });
+
+
+
+        function ok(){
             formdata = $('#addform');
+            formdata.find('.error-block').remove();
+            formdata.find('.form-control').removeClass('is-invalid');
         }
         // ajax insertion and error handling
         $('#submit').click(function (event) {
             event.preventDefault();
-            form();
+            ok();
             $.ajax({
                 url : "{{route('addemployee.store')}}",
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
@@ -177,19 +199,19 @@
                 success: function (response) {
                     $('#addform').trigger("reset");
                     $('#modal-lg').modal('hide');
-                    $("#msg").css("display", "");
+                    //$("#msg").css("display", "");
                    // $("#msg").fadeOut(4000);
                    // table.draw();
                 },
                 error : function (xhr) {
                     var res = xhr.responseJSON;
-                   // console.log(res)
+                   //console.log(res)
                     if ($.isEmptyObject(res) == false) {
                         $.each(res.errors, function (key, value) {
                             //console.log(value)
                             $('#' + key)
                                 .closest('.error')
-                                .append('<span style="color:red"><strong>' + value + '</strong></span>');
+                                .append('<span class="error-block" style="color:red"><strong>' + value + '</strong></span>');
                             $('#' + key)
                                 .closest('.form-control')
                                 .addClass('is-invalid');
@@ -199,7 +221,6 @@
             })
         });
 
-
         //
         $(function() {
             $("#close").click(function() {
@@ -208,19 +229,11 @@
                 $('#modal-default').modal('hide');
             });
             var $loading = $('.loader').hide();
-            $('#datep').datepicker({
-                autoclose: true
-            })
 
-        $(function () {
-            $('#example2').DataTable({
-                "paging": true,
-                "lengthChange": true,
-                "searching": true,
-                "ordering": true,
-                "info": true,
-                "autoWidth": true,
-            });
-        });
+          });
+
+
+
+
     </script>
     @endsection

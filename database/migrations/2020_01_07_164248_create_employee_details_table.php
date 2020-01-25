@@ -15,13 +15,13 @@ class CreateEmployeeDetailsTable extends Migration
     {
         Schema::create('employee_details', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('emp_name',100);
-            $table->string('emp_email')->unique();
-            $table->string('emp_address');
-            $table->string('emp_phone',20);
-            $table->string('emp_des');
-            $table->double('emp_salary',20);
-            $table->integer('status');
+            $table->string('name',100);
+            $table->string('email')->unique();
+            $table->string('address');
+            $table->string('phone',20);
+            $table->string('designation');
+            $table->double('salary',20);
+            $table->integer('status')->default('0');
             //$table->timestamps();
         });
     }

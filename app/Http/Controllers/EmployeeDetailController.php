@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\EmployeeDetail;
 use Illuminate\Http\Request;
+use DataTables;
+use DB;
+
 
 class EmployeeDetailController extends Controller
 {
@@ -12,9 +15,20 @@ class EmployeeDetailController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+      if ($request->ajax()) {
+
+         $data = EmployeeDetail::latest()->get();
+         return Datatables::of($data)
+                 ->addIndexColumn()
+                 ->addColumn('action', function($row){
+                        $btn = '<a data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm">Edit</a>';
+                        return $btn;
+                 })
+                 ->rawColumns(['action'])
+                 ->make(true);
+     }
     }
 
     /**
@@ -24,6 +38,9 @@ class EmployeeDetailController extends Controller
      */
     public function create()
     {
+      $data = EmployeeDetail::latest()->get();
+      //echo $data;exit();
+      dd($data);
 
     }
 
@@ -36,8 +53,28 @@ class EmployeeDetailController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'employee_name' => 'required|integer|max:255',
+            'employee_name' => 'required|string|max:255',
+            'email' => 'required|email|string|max:255',
+            'phone' => 'required|string|max:255',
+            'designation' => 'required|string|max:255',
+            'salary' => 'required|integer',
+            'address' => 'required|string|max:255',
+
         ]);
+
+        $employee = new EmployeeDetail;
+        $employee->name = $request['employee_name'];
+        $employee->email = $request['email'];
+        $employee->phone = $request['phone'];
+        $employee->designation = $request['designation'];
+        $employee->salary = $request['salary'];
+        $employee->address = $request['address'];
+        $employee->save();
+
+
+        //dd($data);
+
+
     }
 
     /**
