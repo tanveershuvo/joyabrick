@@ -10,6 +10,10 @@ use DB;
 
 class EmployeeDetailController extends Controller
 {
+  public function __construct()
+ {
+   $this->middleware('auth');
+ }
     /**
      * Display a listing of the resource.
      *
@@ -17,18 +21,25 @@ class EmployeeDetailController extends Controller
      */
     public function index(Request $request)
     {
-      if ($request->ajax()) {
 
-         $data = EmployeeDetail::latest()->get();
-         return Datatables::of($data)
+    //  dd($data);
+    //if ($request->ajax()) {
+        $data = EmployeeDetail::all();
+
+        return  Datatables::of($data)
                  ->addIndexColumn()
-                 ->addColumn('action', function($row){
-                        $btn = '<a data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm">Edit</a>';
-                        return $btn;
-                 })
-                 ->rawColumns(['action'])
+                 // ->addColumn('action', function($row){
+                 //        $btn = '<a data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm">Edit</a>';
+                 //        return $btn;
+                 // })
+                 // ->rawColumns(['action'])
                  ->make(true);
-     }
+                // dd($test);
+              //  return $test;
+
+    // }
+
+      // return view('assign_employee',compact('showemployee'));
     }
 
     /**
@@ -38,9 +49,7 @@ class EmployeeDetailController extends Controller
      */
     public function create()
     {
-      $data = EmployeeDetail::latest()->get();
-      //echo $data;exit();
-      dd($data);
+      return view('season_detail');
 
     }
 

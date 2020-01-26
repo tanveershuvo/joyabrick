@@ -65,7 +65,12 @@
 
             </li>
 			<li>
-			   <a class="nav-link" data-widget="control-sidebar" data-slide="true"  href="#"><span  class="fas fa-sign-out-alt"></i>Log out</a>
+			   <a class="nav-link" data-widget="control-sidebar" data-slide="true"  href="{{ route('logout') }}"
+             onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+            <span  class="fas fa-sign-out-alt"></i>Log out</a>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            {{ csrf_field() }}
+        </form>
 		   </li>
         </ul>
     </nav>

@@ -29,12 +29,14 @@
                     <table id="example2" class="table table-bordered table-striped">
                         <thead>
                         <tr>
-                            <th>name</th>
-                            <th>email</th>
-                            <th>phone</th>
-                            <th>designation</th>
-                            <th>salary</th>
-                            <th>address</th>
+                            <th>No.</th>
+                            <th>Name</th>
+                            <th>Email Address</th>
+                            <th>Contact</th>
+                            <th>Designation</th>
+                            <th>Salary</th>
+                            <th>Address</th>
+                            <th>action</th>
                             <th>action</th>
                         </tr>
                         </thead>
@@ -43,12 +45,14 @@
                         </tbody>
                         <tfoot>
                         <tr>
-                            <th>name</th>
-                            <th>email</th>
-                            <th>phone</th>
-                            <th>designation</th>
-                            <th>salary</th>
-                            <th>address</th>
+                          <th>No.</th>
+                          <th>Name</th>
+                          <th>Email Address</th>
+                          <th>Contact</th>
+                          <th>Designation</th>
+                          <th>Salary</th>
+                          <th>Address</th>
+                            <th>action</th>
                             <th>action</th>
                         </tr>
                         </tfoot>
@@ -158,7 +162,7 @@
                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                    }
                    });
-                   table = $('#example2').DataTable({
+                  table = $('#example2').DataTable({
                    processing: true,
                    serverSide: true,
                    beforeSend: function() {
@@ -167,15 +171,29 @@
                    complete: function(){
                       $('.loader').hide();
                    },
-                   ajax: "{{ route('addemployee.index') }}",
+                   ajax: "{{route('addemployee.index')}}",
                    columns: [
+                     {data: 'DT_RowIndex', name: 'DT_RowIndex'},
                      {data: 'name', name: 'name'},
                      {data: 'email', name: 'email'},
                      {data: 'phone', name: 'phone'},
                      {data: 'designation', name: 'designation'},
                      {data: 'salary', name: 'salary'},
                      {data: 'address', name: 'address'},
-                     {data: 'action', name: 'action', orderable: false, searchable: false},
+                     {   data: 'id',
+                       name: 'action',
+                       orderable: false,
+                       searchable: false,
+                       "render": function ( data, type, row, meta ) {
+                           return '<button class="delete btn btn-info" data-id="'+ data +'"> Edit  </button>'
+                       }},
+                       {   data: 'id',
+                         name: 'action',
+                         orderable: false,
+                         searchable: false,
+                         "render": function ( data, type, row, meta ) {
+                             return '<button class="delete btn btn-danger" data-id="'+ data +'"> Delete  </button>'
+                         }},
                    ]
                    });
                  });
@@ -201,7 +219,7 @@
                     $('#modal-lg').modal('hide');
                     //$("#msg").css("display", "");
                    // $("#msg").fadeOut(4000);
-                   // table.draw();
+                    table.draw();
                 },
                 error : function (xhr) {
                     var res = xhr.responseJSON;
