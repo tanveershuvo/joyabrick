@@ -37,7 +37,6 @@
                             <th>Salary</th>
                             <th>Address</th>
                             <th>action</th>
-                            <th>action</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -52,8 +51,7 @@
                           <th>Designation</th>
                           <th>Salary</th>
                           <th>Address</th>
-                            <th>action</th>
-                            <th>action</th>
+                          <th>action</th>
                         </tr>
                         </tfoot>
                     </table>
@@ -185,15 +183,11 @@
                        orderable: false,
                        searchable: false,
                        "render": function ( data, type, row, meta ) {
-                           return '<button class="delete btn btn-info" data-id="'+ data +'"> Edit  </button>'
-                       }},
-                       {   data: 'id',
-                         name: 'action',
-                         orderable: false,
-                         searchable: false,
-                         "render": function ( data, type, row, meta ) {
-                             return '<button class="delete btn btn-danger" data-id="'+ data +'"> Delete  </button>'
-                         }},
+                        return '<button class="btn btn-info fas fa-edit " data-id="'+ data +'"> </button> '
+                                +
+                                '<button class="btn btn-danger fas fa-trash-alt" data-id="'+ data +'"> </button>'
+                              }
+                     },
                    ]
                    });
                  });
@@ -249,8 +243,6 @@
             var $loading = $('.loader').hide();
 
           });
-
-
 
 
     </script>
