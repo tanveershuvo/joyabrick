@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\ProductDetail;
 use Illuminate\Http\Request;
+use DataTables;
+use DB;
+
 
 class ProductDetailController extends Controller
 {
@@ -12,9 +15,14 @@ class ProductDetailController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+      $data = ProductDetail::all();
+    //  dd($data);
+
+      return  Datatables::of($data)
+               ->addIndexColumn()
+               ->make(true);
     }
 
     /**
@@ -35,7 +43,16 @@ class ProductDetailController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+          'product_name'=>'required|string|max:255',
+          'product_rate'=>'required',
+        ]);
+        $product = new ProductDetail;
+        $product->pro_name = $request ['product_name'];
+        $product->unit_price = $request ['product_rate'];
+        $product->save();
+        dd('$product');
+
     }
 
     /**

@@ -17,8 +17,8 @@ class CreateProductDetailsTable extends Migration
             $table->bigIncrements('id');
             $table->string('pro_name',50);
             $table->double('unit_price',10,2);
-            $table->integer('available');
-            $table->integer('com_id');
+            $table->integer('available')->default(0);
+            $table->integer('com_id')->default(0);
             //$table->timestamps();
         });
     }

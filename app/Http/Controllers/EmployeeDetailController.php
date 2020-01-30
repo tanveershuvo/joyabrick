@@ -6,6 +6,7 @@ use App\EmployeeDetail;
 use Illuminate\Http\Request;
 use DataTables;
 use DB;
+use Response;
 
 
 class EmployeeDetailController extends Controller
@@ -61,24 +62,37 @@ class EmployeeDetailController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'employee_name' => 'required|string|max:255',
-            'email' => 'required|email|string|max:255',
-            'phone' => 'required|string|max:255',
-            'designation' => 'required|string|max:255',
-            'salary' => 'required|integer',
-            'address' => 'required|string|max:255',
+      $this->validate($request, [
+          'employee_name' => 'required|string|max:255',
+          'email' => 'required|email|string|max:255',
+          'phone' => 'required|string|max:255',
+          'designation' => 'required|string|max:255',
+          'salary' => 'required|integer',
+          'address' => 'required|string|max:255',
 
-        ]);
+      ]);
 
-        $employee = new EmployeeDetail;
-        $employee->name = $request['employee_name'];
-        $employee->email = $request['email'];
-        $employee->phone = $request['phone'];
-        $employee->designation = $request['designation'];
-        $employee->salary = $request['salary'];
-        $employee->address = $request['address'];
-        $employee->save();
+    $proId = $request->emp_id;
+    $user   =   EmployeeDetail::updateOrCreate(['id' => $proId],
+                ['name' => $request->employee_name,
+                 'email' => $request->email,
+                 'phone' => $request->phone,
+                 'designation' => $request->designation,
+                 'salary' => $request->salary,
+                 'address' => $request->address
+               ]);
+               //dd($user);
+    return Response::json($user);
+
+
+        // $employee = new EmployeeDetail;
+        // $employee->name = $request['employee_name'];
+        // $employee->email = $request['email'];
+        // $employee->phone = $request['phone'];
+        // $employee->designation = $request['designation'];
+        // $employee->salary = $request['salary'];
+        // $employee->address = $request['address'];
+        // $employee->save();
 
 
         //dd($data);
@@ -103,9 +117,11 @@ class EmployeeDetailController extends Controller
      * @param  \App\EmployeeDetail  $employeeDetail
      * @return \Illuminate\Http\Response
      */
-    public function edit(EmployeeDetail $employeeDetail)
+    public function edit($id)
     {
-        //
+      $editEmp  = EmployeeDetail::where('id',$id)->first();
+      //dd($editEmp);
+      return Response::json($editEmp);
     }
 
     /**

@@ -78,6 +78,7 @@
                     <form id="addform">
                         @csrf
                         <div class="card-body">
+                          <input type="hidden" id="emp_id" name="emp_id">
                             <div class="row mb-3">
                                 <div class="col-md-3">
                                     <label for="employeeName :">Employee Name :</label>
@@ -134,7 +135,7 @@
                 </div>
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                    <button type="button" id="submit" class="btn btn-success" >Save changes</button>
+                    <button type="button" id="submit" class="btn btn-success" >Save</button>
                 </div>
             </div>
             <!-- /.modal-content -->
@@ -183,7 +184,7 @@
                        orderable: false,
                        searchable: false,
                        "render": function ( data, type, row, meta ) {
-                        return '<button class="btn btn-info fas fa-edit " data-id="'+ data +'"> </button> '
+                        return '<button class="edit btn btn-info fas fa-edit " data-id="'+ data +'"> </button> '
                                 +
                                 '<button class="btn btn-danger fas fa-trash-alt" data-id="'+ data +'"> </button>'
                               }
@@ -233,6 +234,20 @@
             })
         });
 
+        $('body').on('click', '.edit', function () {
+          var id = $(this).data('id');
+          $.get("{{ route('addemployee.index') }}" +'/' + id +'/edit', function (data) {
+          //  console.log(data.name);
+          $('#submit').val("edit-employee");
+          $('#emp_id').val(data.id);
+          $('#employee_name').val(data.name);
+          $('#email').val(data.email);
+          $('#phone').val(data.phone);
+          $('#salary').val(data.salary);
+          $('#address').val(data.address);
+            $('#modal-lg').modal('show');
+  })
+});
         //
         $(function() {
             $("#close").click(function() {
