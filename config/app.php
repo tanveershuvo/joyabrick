@@ -167,6 +167,8 @@ return [
          */
          // For Yajra DataTable
          Yajra\DataTables\DataTablesServiceProvider::class,
+          // For Yajra DataTable buttons
+         Yajra\DataTables\ButtonsServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -229,6 +231,7 @@ return [
 
            // For Yajra DataTable
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
+
 
     ],
 

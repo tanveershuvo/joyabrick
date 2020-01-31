@@ -18,8 +18,9 @@
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 
-    <!-- DataTables -->
-    <link rel="stylesheet" href="{{asset('adminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.css')}}">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="{{asset('adminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.css')}}">
+
 <!-- sweetalert2 -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
  @yield('public_css')

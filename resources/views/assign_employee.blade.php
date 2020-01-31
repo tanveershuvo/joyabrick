@@ -7,7 +7,7 @@
     <title>BFMS Add Employee</title>
 @endsection
 @section('title')
-    <a class="btn btn-primary"  href="#" role="button"  data-toggle="modal" data-target="#modal-lg"> <i class="fa fa-plus" aria-hidden="true"></i> ADD EMPLOYEE </a>
+    <a class="btn btn-primary"  href="#" role="button" onclick="resetform();"  data-toggle="modal" data-target="#modal-lg"> <i class="fa fa-plus" aria-hidden="true"></i> ADD EMPLOYEE </a>
 @endsection
 @section('breadcrumb_list')
     <li class="breadcrumb-item active">Employee</li>
@@ -129,7 +129,7 @@
                     </form>
                 </div>
                 <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger" onclick="resetform();" data-dismiss="modal">Close</button>
                     <button type="button" id="submit" class="btn btn-success" >Save</button>
                 </div>
             </div>
@@ -180,6 +180,9 @@
                                 '<button class="btn btn-danger fas fa-trash-alt" onclick="softDel('+ data +');" data-id="'+ data +'"> </button>'
                               }
                      },
+                   ],
+                   buttons: [
+                       'copy', 'csv', 'excel', 'pdf', 'print'
                    ]
                    });
                  });
@@ -236,6 +239,7 @@
           $('#employee_name').val(response.name);
           $('#email').val(response.email);
           $('#phone').val(response.phone);
+          $('#designation').val(response.designation);
           $('#salary').val(response.salary);
           $('#address').val(response.address);
             $('#modal-lg').modal('show');
@@ -270,6 +274,11 @@
           }
         })
           }
+        function resetform(){
+
+          $('#addform').trigger("reset");
+
+        }
 
     </script>
     @endsection
