@@ -32,7 +32,7 @@
                             <th>Designation</th>
                             <th>Salary</th>
                             <th>Address</th>
-                            <th>action</th>
+                            <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -47,7 +47,7 @@
                           <th>Designation</th>
                           <th>Salary</th>
                           <th>Address</th>
-                          <th>action</th>
+                          <th>Action</th>
                         </tr>
                         </tfoot>
                     </table>
@@ -163,8 +163,10 @@
                       $('.loader').hide();
                    },
                    ajax: "{{route('addemployee.index')}}",
+                   dom: 'Bfrtip',
+
                    columns: [
-                     {data: 'DT_RowIndex'},
+                     {data: 'DT_RowIndex',name:'DT_RowIndex'},
                      {data: 'name'},
                      {data: 'email'},
                      {data: 'phone'},
@@ -175,15 +177,62 @@
                        orderable: false,
                        searchable: false,
                        "render": function ( data, type, row, meta ) {
-                        return '<button class="edit btn btn-info fas fa-edit " data-id="'+ data +'"> </button> '
+                        return '<button class="edit btn btn-info fas fa-edit " data-toggle="tooltip" data-placement="top" title="Edit" data-id="'+ data +'"> </button> '
                                 +
                                 '<button class="btn btn-danger fas fa-trash-alt" onclick="softDel('+ data +');" data-id="'+ data +'"> </button>'
                               }
                      },
                    ],
+
+                   //Export Datatables buttons
                    buttons: [
-                       'copy', 'csv', 'excel', 'pdf', 'print'
-                   ]
+                     {
+                       extend: 'copy',
+                       title: 'Employee details  <?php $ldate = date('Y-m-d H:i:s');echo $ldate;?>',
+                       text: '<span style="color:black"><i class="fas fa-copy"></i> Copy</span>',
+                       className: "btn btn-outline-warning",
+                       exportOptions: {
+                          columns: [0, 1, 2, 3, 4, 5]
+                      }
+                    },
+                     {
+                       extend: 'excelHtml5',
+                       title: 'Employee details <?php $timestamp = date('m-d-Y h:i A');echo $timestamp;?>',
+                       text: '<span style="color:black"><i class="fas fa-file-excel"></i> Excel</span>',
+                       className: "btn btn-outline-warning",
+                       exportOptions: {
+                          columns: [0, 1, 2, 3, 4, 5]
+                      }
+                    },
+                    {
+                      extend: 'pdfHtml5',
+                      title: 'Employee details <?php $timestamp = date('m-d-Y h:i A');echo $timestamp;?>',
+                      text: '<span style="color:black"><i class="fas fa-file-pdf"></i> Pdf</span>',
+                      className: "btn btn-outline-warning",
+                      exportOptions: {
+                         columns: [0, 1, 2, 3, 4, 5]
+                     }
+                   },
+
+                   {
+                     extend: 'csvHtml5',
+                     title: 'Employee details <?php $timestamp = date('m-d-Y h:i A');echo $timestamp;?>',
+                     text: '<span style="color:black"><i class="fas fa-file-csv"></i> Csv</span>',
+                     className: "btn btn-outline-warning",
+                     exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5]
+                    }
+                  },
+                  {
+                    extend: 'print',
+                    title: 'Employee details <?php $timestamp = date('m-d-Y h:i A');echo $timestamp;?>',
+                    text: '<span style="color:black"><i class="fas fa-print"></i> Print</span>',
+                    className: "btn btn-outline-warning",
+                    exportOptions: {
+                       columns: [0, 1, 2, 3, 4, 5]
+                   }
+                 },
+                   ],
                    });
                  });
 
@@ -274,6 +323,8 @@
           }
         })
           }
+
+          //for reset all form data
         function resetform(){
 
           $('#addform').trigger("reset");

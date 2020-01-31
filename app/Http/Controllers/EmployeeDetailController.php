@@ -29,6 +29,7 @@ class EmployeeDetailController extends Controller
 
         return  Datatables::of($data)
                  ->addIndexColumn()
+                
                  ->make(true);
     }
 
