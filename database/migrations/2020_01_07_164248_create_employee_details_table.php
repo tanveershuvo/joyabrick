@@ -23,6 +23,7 @@ class CreateEmployeeDetailsTable extends Migration
             $table->double('salary',20);
             $table->integer('status')->default('0');
             //$table->timestamps();
+             $table->softDeletes();
         });
     }
 

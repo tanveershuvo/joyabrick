@@ -31,6 +31,7 @@ Route:: get ('/employee_details', function () {
 })->name('employee_details');
 
 Route::resource('addemployee','EmployeeDetailController');
+Route::get('addemployee/{id}/destroy', 'EmployeeDetailController@destroy');
 
 Route:: get ('/employee_Unpaid', function () {
     return view('employee_Unpaid_Salary');

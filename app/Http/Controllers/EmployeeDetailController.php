@@ -9,6 +9,7 @@ use DB;
 use Response;
 
 
+
 class EmployeeDetailController extends Controller
 {
   public function __construct()
@@ -24,34 +25,11 @@ class EmployeeDetailController extends Controller
     {
 
     //  dd($data);
-    //if ($request->ajax()) {
         $data = EmployeeDetail::all();
 
         return  Datatables::of($data)
                  ->addIndexColumn()
-                 // ->addColumn('action', function($row){
-                 //        $btn = '<a data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm">Edit</a>';
-                 //        return $btn;
-                 // })
-                 // ->rawColumns(['action'])
                  ->make(true);
-                // dd($test);
-              //  return $test;
-
-    // }
-
-      // return view('assign_employee',compact('showemployee'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-      return view('season_detail');
-
     }
 
     /**
@@ -72,8 +50,8 @@ class EmployeeDetailController extends Controller
 
       ]);
 
-    $proId = $request->emp_id;
-    $user   =   EmployeeDetail::updateOrCreate(['id' => $proId],
+    $empId = $request->emp_id;
+    $emp =   EmployeeDetail::updateOrCreate(['id' => $empId],
                 ['name' => $request->employee_name,
                  'email' => $request->email,
                  'phone' => $request->phone,
@@ -81,34 +59,8 @@ class EmployeeDetailController extends Controller
                  'salary' => $request->salary,
                  'address' => $request->address
                ]);
-               //dd($user);
-    return Response::json($user);
-
-
-        // $employee = new EmployeeDetail;
-        // $employee->name = $request['employee_name'];
-        // $employee->email = $request['email'];
-        // $employee->phone = $request['phone'];
-        // $employee->designation = $request['designation'];
-        // $employee->salary = $request['salary'];
-        // $employee->address = $request['address'];
-        // $employee->save();
-
-
-        //dd($data);
-
-
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\EmployeeDetail  $employeeDetail
-     * @return \Illuminate\Http\Response
-     */
-    public function show(EmployeeDetail $employeeDetail)
-    {
-        //
+    //dd($user);
+      return Response::json($emp);
     }
 
     /**
@@ -124,17 +76,6 @@ class EmployeeDetailController extends Controller
       return Response::json($editEmp);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\EmployeeDetail  $employeeDetail
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, EmployeeDetail $employeeDetail)
-    {
-        //
-    }
 
     /**
      * Remove the specified resource from storage.
@@ -142,8 +83,10 @@ class EmployeeDetailController extends Controller
      * @param  \App\EmployeeDetail  $employeeDetail
      * @return \Illuminate\Http\Response
      */
-    public function destroy(EmployeeDetail $employeeDetail)
+    public function destroy($id)
     {
-        //
+          $emp = EmployeeDetail::findOrFail($id)->delete();
+
+        return response()->json();
     }
 }

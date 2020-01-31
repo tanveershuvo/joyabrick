@@ -18,6 +18,9 @@
 <script src="{{asset('adminLTE/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
 <!-- AdminLTE App -->
 <script src="{{asset('adminLTE/dist/js/adminlte.js')}}"></script>
+ <!-- DataTables -->
+  <script src="{{asset('adminLTE/plugins/datatables/jquery.dataTables.js')}}"></script>
+  <script src="{{asset('adminLTE/plugins/datatables-bs4/js/dataTables.bootstrap4.js')}}"></script>
 @yield('public_js')
 </script>
 </body>

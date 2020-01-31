@@ -1,9 +1,7 @@
 @extends('layouts.admin_layout')
 @section('public_css')
-  <meta name="_token" content="{{csrf_token()}}" />
-    <!-- DataTables -->
-    <link rel="stylesheet" href="{{asset('adminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.css')}}">
-    @endsection
+
+@endsection
 
 @section('page_title')
     <title>BFMS Add Employee</title>
@@ -17,9 +15,7 @@
 @section('content')
     <div class="row">
         <div class="col-12">
-
             <!-- /.card -->
-
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">EMPLOYEE DETAILS AND SALARY DETAILS </h3>
@@ -130,7 +126,6 @@
                                     <input type="text" class="form-control" id="address" onkeyup="ok();" name="address" placeholder="Enter Address">
                                 </div>
                             </div>
-
                     </form>
                 </div>
                 <div class="modal-footer justify-content-between">
@@ -143,14 +138,11 @@
         <!-- /.modal-dialog -->
     </div>
     <!-- /.modal -->
-
 @endsection
+
 @section('public_js')
-    <!-- DataTables -->
-    <script src="{{asset('adminLTE/plugins/datatables/jquery.dataTables.js')}}"></script>
-    <script src="{{asset('adminLTE/plugins/datatables-bs4/js/dataTables.bootstrap4.js')}}"></script>
+
     <!-- AdminLTE for demo purposes -->
-    <script src="{{asset('adminLTE/dist/js/demo.js')}}"></script>
     <script>
         //to stack all form data in a variable
 
@@ -172,21 +164,20 @@
                    },
                    ajax: "{{route('addemployee.index')}}",
                    columns: [
-                     {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-                     {data: 'name', name: 'name'},
-                     {data: 'email', name: 'email'},
-                     {data: 'phone', name: 'phone'},
-                     {data: 'designation', name: 'designation'},
-                     {data: 'salary', name: 'salary'},
-                     {data: 'address', name: 'address'},
-                     {   data: 'id',
-                       name: 'action',
+                     {data: 'DT_RowIndex'},
+                     {data: 'name'},
+                     {data: 'email'},
+                     {data: 'phone'},
+                     {data: 'designation'},
+                     {data: 'salary'},
+                     {data: 'address'},
+                     {   data: 'id', //databse table id example:emplpoyeeDetail table's id
                        orderable: false,
                        searchable: false,
                        "render": function ( data, type, row, meta ) {
                         return '<button class="edit btn btn-info fas fa-edit " data-id="'+ data +'"> </button> '
                                 +
-                                '<button class="btn btn-danger fas fa-trash-alt" data-id="'+ data +'"> </button>'
+                                '<button class="btn btn-danger fas fa-trash-alt" onclick="softDel('+ data +');" data-id="'+ data +'"> </button>'
                               }
                      },
                    ]
@@ -194,7 +185,7 @@
                  });
 
 
-
+//Inser data
         function ok(){
             formdata = $('#addform');
             formdata.find('.error-block').remove();
@@ -234,31 +225,51 @@
             })
         });
 
+//Edit by using  CreateOrUpdate function in EmployeeDetailController
+
         $('body').on('click', '.edit', function () {
-          var id = $(this).data('id');
-          $.get("{{ route('addemployee.index') }}" +'/' + id +'/edit', function (data) {
-          //  console.log(data.name);
-          $('#submit').val("edit-employee");
-          $('#emp_id').val(data.id);
-          $('#employee_name').val(data.name);
-          $('#email').val(data.email);
-          $('#phone').val(data.phone);
-          $('#salary').val(data.salary);
-          $('#address').val(data.address);
+          var id = $(this).data('id'); //Here id = data id
+          $.get("{{ route('addemployee.index') }}" +'/' + id +'/edit', function (response) {
+            //console.log(response);
+          $('#submit').val("edit-employee"); //
+          $('#emp_id').val(response.id);
+          $('#employee_name').val(response.name);
+          $('#email').val(response.email);
+          $('#phone').val(response.phone);
+          $('#salary').val(response.salary);
+          $('#address').val(response.address);
             $('#modal-lg').modal('show');
   })
 });
-        //
-        $(function() {
-            $("#close").click(function() {
-                $('#form').trigger("reset");
-                $('#kok').attr('value', '');
-                $('#modal-default').modal('hide');
-            });
-            var $loading = $('.loader').hide();
 
-          });
+//SoftDeletes function
+        function softDel(id){
+            //alert(id);
+            Swal.fire({
+          title: 'Are you sure?',
+          text: "You won't be able to revert this!",
+          icon: 'error',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+          if (result.value) {
+              $.get("{{ route('addemployee.index') }}"  +'/' + id +'/destroy', function () {
 
+                  Swal.fire({
+                   title: 'Successfully Deleted!',
+                   icon: 'success',
+                   showCancelButton: false,//There won't be any cancle button
+                   showConfirmButton  : false,
+                   timer: 1500
+                 })
+                 table.draw();
+                 });
+          //  alert(id);
+          }
+        })
+          }
 
     </script>
     @endsection
