@@ -192,7 +192,7 @@
                        text: '<span style="color:black"><i class="fas fa-copy"></i> Copy</span>',
                        className: "btn btn-outline-warning",
                        exportOptions: {
-                          columns: [0, 1, 2, 3, 4, 5]
+                          columns: [0, 1, 2, 3, 4, 5,6]
                       }
                     },
                      {
@@ -201,7 +201,7 @@
                        text: '<span style="color:black"><i class="fas fa-file-excel"></i> Excel</span>',
                        className: "btn btn-outline-warning",
                        exportOptions: {
-                          columns: [0, 1, 2, 3, 4, 5]
+                          columns: [0, 1, 2, 3, 4, 5,6]
                       }
                     },
                     {
@@ -210,7 +210,10 @@
                       text: '<span style="color:black"><i class="fas fa-file-pdf"></i> Pdf</span>',
                       className: "btn btn-outline-warning",
                       exportOptions: {
-                         columns: [0, 1, 2, 3, 4, 5]
+                         columns: [0, 1, 2, 3, 4, 5,6]
+                     },
+                     customize : function(doc) {
+                       doc.content[1].table.widths = [ '5%', '15%', '20%', '15%', '10%','10%','20%'];
                      }
                    },
 
@@ -220,7 +223,7 @@
                      text: '<span style="color:black"><i class="fas fa-file-csv"></i> Csv</span>',
                      className: "btn btn-outline-warning",
                      exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5]
+                        columns: [0, 1, 2, 3, 4, 5,6]
                     }
                   },
                   {
