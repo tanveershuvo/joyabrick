@@ -353,9 +353,16 @@
 
           $('#addform').trigger("reset");
           ok();
+<<<<<<< HEAD
           //DevTanveer
             //devtanananaa
+=======
+          //DevTanveerok
+
+
+>>>>>>> devSharif
         }
 
     </script>
+{{--ok--}}
     @endsection
