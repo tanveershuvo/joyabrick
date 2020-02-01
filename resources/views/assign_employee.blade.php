@@ -353,8 +353,7 @@
 
           $('#addform').trigger("reset");
           ok();
-          //new function will be here
-            //devvSharif
+          //DevTanveer
 
 
         }
