@@ -4,6 +4,10 @@
         div.dataTables_length {
             padding-top: 5px;
         }
+        table.dataTable tbody th,
+        table.dataTable tbody td {
+            white-space: nowrap;
+        }
 
 
     </style>
@@ -14,7 +18,7 @@
     <title>BFMS Add Employee</title>
 @endsection
 @section('title')
-    <a class="btn btn-info" role="button" onclick="resetform();"  data-toggle="modal" data-target="#modal-lg"> <i class="fa fa-plus" aria-hidden="true"></i> ADD NEW EMPLOYEE </a>
+    <a class="btn btn-info" role="button" onclick="resetform();"  data-toggle="modal" data-target="#modal-lg"> <i class="fa fa-plus" aria-hidden="true"></i> @lang('home.add_new_employee') </a>
 @endsection
 @section('breadcrumb_list')
     <li class="breadcrumb-item active">Employee</li>
@@ -29,17 +33,17 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                    <table id="example2" class="table table-bordered table-striped">
+                    <table id="example2" class="table table-bordered  table-striped"  style="width:100%">
                         <thead>
                         <tr>
-                            <th>No.</th>
-                            <th>Name</th>
-                            <th>Email Address</th>
-                            <th>Contact</th>
-                            <th>Designation</th>
-                            <th>Salary</th>
-                            <th>Address</th>
-                            <th>Action</th>
+                            <th>@lang('home.no')</th>
+                            <th>@lang('home.name')</th>
+                            <th>@lang('home.email_address')</th>
+                            <th>@lang('home.contact')</th>
+                            <th>@lang('home.designation')</th>
+                            <th>@lang('home.salary')</th>
+                            <th>@lang('home.address')</th>
+                            <th>@lang('home.action')</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -47,14 +51,14 @@
                         </tbody>
                         <tfoot>
                         <tr>
-                          <th>No.</th>
-                          <th>Name</th>
-                          <th>Email Address</th>
-                          <th>Contact</th>
-                          <th>Designation</th>
-                          <th>Salary</th>
-                          <th>Address</th>
-                          <th>Action</th>
+                            <th>@lang('home.no')</th>
+                            <th>@lang('home.name')</th>
+                            <th>@lang('home.email_address')</th>
+                            <th>@lang('home.contact')</th>
+                            <th>@lang('home.designation')</th>
+                            <th>@lang('home.salary')</th>
+                            <th>@lang('home.address')</th>
+                            <th>@lang('home.action')</th>
                         </tr>
                         </tfoot>
                     </table>
@@ -163,17 +167,10 @@
                   table = $('#example2').DataTable({
                    processing: true,
                    serverSide: true,
-                   beforeSend: function() {
-                    $('.loader').show();
-                   },
-                   complete: function(){
-                      $('.loader').hide();
-                   },
-
                    ajax: "{{route('addemployee.index')}}",
 
                    columns: [
-                     {data: 'DT_RowIndex',name:'DT_RowIndex'},
+                     {data: 'DT_RowIndex'},
                      {data: 'name'},
                      {data: 'email'},
                      {data: 'phone'},
@@ -181,6 +178,7 @@
                      {data: 'salary'},
                      {data: 'address'},
                      {   data: 'id', //databse table id example:emplpoyeeDetail table's id
+
                        orderable: false,
                        searchable: false,
                        "render": function ( data, type, row, meta ) {
@@ -191,7 +189,7 @@
                      },
                    ],
                       //Dom using in Datatables  possign the whole table's position
-                      dom: '"<\'row\'<\'col-sm-12 text-center\'Br>>" +\n' +
+                      dom: '"<\'row\'<\'col-sm-12 text-center\'B>>" +\n' +
                           '"<\'row\'<\'col-sm-12 col-md-6\'l><\'col-sm-12 col-md-6\'f>>" +\n' +
                           '"<\'row\'<\'col-sm-12\'t>>" +\n' +
                           '"<\'row\'<\'col-sm-12 col-md-5\'i><\'col-sm-12 col-md-7\'p>>",',
@@ -247,6 +245,10 @@
                    }
                  },
                    ],
+                      scrollY:        true,
+                      scrollX:        true,
+                      scrollCollapse: true,
+
                       //Length & Searach button
                       lengthMenu: [
                           [10, 25, 50, 100],
@@ -256,6 +258,7 @@
                           "sSearch": "Quick Search:"
                       },
                    });
+
                  });
 
 

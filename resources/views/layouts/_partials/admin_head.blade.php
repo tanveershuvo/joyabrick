@@ -7,6 +7,8 @@
     @yield('page_title')
     <!-- csrf_token for edit, detele & show -->
       <meta name="_token" content="{{csrf_token()}}" />
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/css/flag-icon.min.css" rel="stylesheet">
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="{{asset('adminLTE/plugins/fontawesome-free/css/all.min.css')}}">
   <!-- Ionicons -->
@@ -20,6 +22,7 @@
 
   <!-- DataTables -->
   <link rel="stylesheet" href="{{asset('adminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.css')}}">
+    <link rel="stylesheet" href="https://cdn.datatables.net/fixedcolumns/3.3.0/css/fixedColumns.dataTables.min.css">
 
 
 <!-- sweetalert2 -->
@@ -30,25 +33,6 @@
 
     @yield('public_css')
 
-    <script>
-            @if(Session::has('message'))
-        var type = "{{ Session::get('alert-type', 'info') }}";
-        switch(type){
-            case 'info':
-                toastr.info("{{ Session::get('message') }}");
-                break;
 
-            case 'warning':
-                toastr.warning("{{ Session::get('message') }}");
-                break;
-            case 'success':
-                toastr.success("{{ Session::get('message') }}");
-                break;
-            case 'error':
-                toastr.error("{{ Session::get('message') }}");
-                break;
-        }
-        @endif
-    </script>
 
 </head>

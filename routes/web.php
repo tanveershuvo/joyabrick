@@ -45,3 +45,5 @@ Route:: get ('/product_avail', function () {
     return view('product_availability');
 })->name('product_avail');
 Route::resource('product','ProductDetailController');
+
+Route::get('lang/{locale}', 'HomeController@lang');
