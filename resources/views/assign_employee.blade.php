@@ -91,7 +91,7 @@
                                     <label for="employeeName :">Employee Name :</label>
                                 </div>
                                 <div class="error col-md-9">
-                                    <input type="text" id="employee_name" name="employee_name" class="form-control" placeholder="Enter Name">
+                                    <input type="text" id="employee_name" name="employee_name"  class="form-control count" placeholder="Enter Name">
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -263,6 +263,12 @@
 
 
 //Inser data
+        $(document).on('keyup', '.form-control', function() {
+            var err_id = $(this).attr('id');
+
+            $('#' + err_id).closest('.form-control').removeClass('is-invalid');
+            $('#' + err_id).closest('.error-block').remove();
+        });
         function ok(){
             formdata = $('#addform');
             formdata.find('.error-block').remove();
@@ -291,11 +297,12 @@
                             //console.log(value)
                             $('#' + key)
                                 .closest('.error')
-                                .append('<span class="error-block" style="color:red"><strong>' + value + '</strong></span>');
+                                .append('<span class="error-block"  style="color:red"><strong>' + value + '</strong></span>');
                             $('#' + key)
                                 .closest('.form-control')
                                 .addClass('is-invalid');
                         });
+
                     }
                 }
             })
