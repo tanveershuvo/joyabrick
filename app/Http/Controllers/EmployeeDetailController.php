@@ -42,12 +42,12 @@ class EmployeeDetailController extends Controller
     public function store(Request $request)
     {
       $this->validate($request, [
-          'employee_name' => 'required|string|max:255',
-          'email' => 'required|email|string|max:255',
-          'phone' => 'required|string|max:255',
-          'designation' => 'required|string|max:255',
+          'employee_name' => 'required|alpha|max:255',
+          'email' => 'required|email|string|max:255|unique:employee_details,email',
+          'phone' => 'required|numeric',
+          'designation' => 'required|string|max:10',
           'salary' => 'required|integer',
-          'address' => 'required|string|max:255',
+          'address' => 'required|string|max:150',
 
       ]);
 
