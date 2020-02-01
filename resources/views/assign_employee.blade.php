@@ -353,7 +353,7 @@
 
           $('#addform').trigger("reset");
           ok();
-          //DevTanveer
+          //DevTanveerok
 
 
         }
