@@ -15,7 +15,7 @@
 @endsection
 
 @section('page_title')
-    <title>BFMS Add Employee</title>
+    <title> @lang('home.bfms_add_employee')</title>
 @endsection
 @section('title')
     <a class="btn btn-info" role="button" onclick="resetform();"  data-toggle="modal" data-target="#modal-lg"> <i class="fa fa-plus" aria-hidden="true"></i> @lang('home.add_new_employee') </a>
@@ -29,7 +29,7 @@
             <!-- /.card -->
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">EMPLOYEE DETAILS AND SALARY DETAILS </h3>
+                    <h3 class="card-title">@lang('home.emp_table_tittle')</h3>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
@@ -360,14 +360,7 @@
 
           $('#addform').trigger("reset");
           ok();
-<<<<<<< HEAD
-          //DevTanveer
-            //devtanananaa
-=======
           //DevTanveerok
-
-
->>>>>>> devSharif
         }
 
     </script>

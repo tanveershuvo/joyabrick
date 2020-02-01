@@ -11,7 +11,7 @@
                 <a href="#" class="nav-link">@lang('home.name')</a>
             </li>
             <li class="nav-item d-none d-sm-inline-block">
-                <a href="#" class="nav-link">Contact</a>
+                <a href="#" class="nav-link">@lang('home.contact')</a>
             </li>
 
 
@@ -84,7 +84,7 @@
 			<li>
 			   <a class="nav-link " data-widget="control-sidebar" data-slide="true"  href="{{ route('logout') }}"
              onclick="event.preventDefault();document.getElementById('logout-form').submit();">
-            <span  class="fas fa-sign-out-alt"></i>Log out</a>
+            <span  class="fas fa-sign-out-alt"></i>@lang('home.log_out')</a>
         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
             {{ csrf_field() }}
         </form>

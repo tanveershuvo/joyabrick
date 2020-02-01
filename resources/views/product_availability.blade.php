@@ -1,55 +1,62 @@
 @extends('layouts.admin_layout')
 @section('public_css')
-  <meta name="_token" content="{{csrf_token()}}" />
-    <!-- DataTables -->
-    <link rel="stylesheet" href="{{asset('adminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.css')}}">
-    @endsection
+    <style>
+        div.dataTables_length {
+            padding-top: 5px;
+        }
+        table.dataTable tbody th,
+        table.dataTable tbody td {
+            white-space: nowrap;
+        }
+
+
+    </style>
+
+@endsection
 
 @section('page_title')
-    <title>BFMS Add Employee</title>
+    <title> @lang('home.bfms_add_product')</title>
 @endsection
 @section('title')
-    <button class=" btn btn-info"  href="#" role="button"  data-toggle="modal" data-target="#modal-lg"> <i class="fa fa-plus" aria-hidden="true"></i> ADD New Products details </button>
+    <a class="btn btn-info" role="button"   data-toggle="modal" data-target="#modal-lg"> <i class="fa fa-plus" aria-hidden="true"></i> @lang('home.add_new_product') </a>
 @endsection
 @section('breadcrumb_list')
-    <li class="breadcrumb-item active">Employee</li>
+    <li class="breadcrumb-item active">@lang('home.product')</li>
 @endsection
 @section('content')
     <div class="row">
         <div class="col-12">
-
             <!-- /.card -->
-
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">ADD PRODUCT /EDIT PRODUCT /PRODUCT AVAILABILITY </h3>
+                    <h3 class="card-title">@lang('home.product_tbl_title')</h3>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                    <table id="producttable" class="table table-bordered table-striped">
-                        <thead>
-                        <tr>
-                            <th>No.</th>
-                            <th>Product Name</th>
-                            <th>Product Rate</th>
-                            <th>Product Stock</th>
-                            <th>Stock Update</th>
-                            <th>Action</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-
-                        </tbody>
-                        <tfoot>
-                        <tr>
+                    <table id="productTable" class="table table-bordered  table-striped"  style="width:100%">
+                      <thead>
+                      <tr>
                           <th>No.</th>
                           <th>Product Name</th>
                           <th>Product Rate</th>
                           <th>Product Stock</th>
                           <th>Stock Update</th>
                           <th>Action</th>
-                        </tr>
-                        </tfoot>
+                      </tr>
+                      </thead>
+                      <tbody>
+
+                      </tbody>
+                      <tfoot>
+                      <tr>
+                        <th>No.</th>
+                        <th>Product Name</th>
+                        <th>Product Rate</th>
+                        <th>Product Stock</th>
+                        <th>Stock Update</th>
+                        <th>Action</th>
+                      </tr>
+                      </tfoot>
                     </table>
                 </div>
                 <!-- /.card-body -->
@@ -60,12 +67,12 @@
     </div>
     <!-- /.row -->
 
-    <!-- Employee Modal Form-->
+    <!-- New Product Add Modal Form-->
     <div class="modal fade" id="modal-lg">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Add New Employee's Information Here</h4>
+                    <h4 class="modal-title">Add New Products's Information Here</h4>
                     <button type="button" class="close" data-dismiss= "modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -74,6 +81,7 @@
                     <form id="addProductform">
                         @csrf
                         <div class="card-body">
+                            <input type="hidden" id="prod_id" name="pro_id">
                             <div class="row mb-4">
                                 <div class="col-md-2">
                                     <label for="PRODUCTName :">Name :</label>
@@ -102,14 +110,11 @@
         <!-- /.modal-dialog -->
     </div>
     <!-- /.modal -->
-
 @endsection
+
 @section('public_js')
-    <!-- DataTables -->
-    <script src="{{asset('adminLTE/plugins/datatables/jquery.dataTables.js')}}"></script>
-    <script src="{{asset('adminLTE/plugins/datatables-bs4/js/dataTables.bootstrap4.js')}}"></script>
+
     <!-- AdminLTE for demo purposes -->
-    <script src="{{asset('adminLTE/dist/js/demo.js')}}"></script>
     <script>
         //to stack all form data in a variable
 
@@ -120,16 +125,11 @@
                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                    }
                    });
-                  table = $('#producttable').DataTable({
+                  table = $('#productTable').DataTable({
                    processing: true,
                    serverSide: true,
-                   beforeSend: function() {
-                    $('.loader').show();
-                   },
-                   complete: function(){
-                      $('.loader').hide();
-                   },
-                   ajax: "{{route('product.index')}}",
+                   ajax: "{{route('addproduct.index')}}",
+
                    columns: [
                      {data: 'DT_RowIndex'},
                      {data: 'pro_name'},
@@ -139,24 +139,30 @@
                        orderable: false,
                        searchable: false,
                        "render": function ( data, type, row, meta ) {
-                        return '<button class="btn btn-info fas fa-success " data-id="'+ data +'"> </button> '
+                        return '<button class="btn btn-info fas fa-info " data-id="'+ data +'"> </button> '
                               }
                      },
                      {   data: 'id',
                        orderable: false,
                        searchable: false,
                        "render": function ( data, type, row, meta ) {
-                        return '<button class="btn btn-info fas fa-edit " data-id="'+ data +'"> </button> '
-                                +
-                                '<button class="btn btn-danger fas fa-trash-alt" data-id="'+ data +'"> </button>'
-                              }
-                     },
-                   ]
+                         return '<button class="productedit btn btn-outline-info fas fa-edit " data-toggle="tooltip" data-placement="top" title="Edit" data-id="'+ data +'"> </button> '
+                                 +
+                                 '<button class="btn btn-outline-danger fas fa-trash-alt" onclick="softDel('+ data +');" data-id="'+ data +'"> </button>'
+                                 }
+                       },
+                     ]
+                     });
                    });
-                 });
 
 
+//Inser data
+        $(document).on('keyup', '.form-control', function() {
+            var err_id = $(this).attr('id');
 
+            $('#' + err_id).closest('.form-control').removeClass('is-invalid');
+            $('#' + err_id).closest('.error-block').remove();
+        });
         function ok(){
             formdata = $('#addProductform');
             formdata.find('.error-block').remove();
@@ -165,19 +171,16 @@
         // ajax insertion and error handling
         $('#submit').click(function (event) {
             event.preventDefault();
-          //  alert('ok');
             ok();
             $.ajax({
-                url : "{{route('product.store')}}",
+                url : "{{route('addproduct.store')}}",
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 type: "POST",
-                
                 data : formdata.serialize(),
                 success: function (response) {
                     $('#addProductform').trigger("reset");
                     $('#modal-lg').modal('hide');
-                    //$("#msg").css("display", "");
-                   // $("#msg").fadeOut(4000);
+                   // toastr.success(data.message, data.title);
                     table.draw();
                 },
                 error : function (xhr) {
@@ -188,27 +191,67 @@
                             //console.log(value)
                             $('#' + key)
                                 .closest('.error')
-                                .append('<span class="error-block" style="color:red"><strong>' + value + '</strong></span>');
+                                .append('<span class="error-block"  style="color:red"><strong>' + value + '</strong></span>');
                             $('#' + key)
                                 .closest('.form-control')
                                 .addClass('is-invalid');
                         });
+
                     }
                 }
             })
         });
 
-        //
-        $(function() {
-            $("#close").click(function() {
-                $('#form').trigger("reset");
-                $('#kok').attr('value', '');
-                $('#modal-default').modal('hide');
-            });
-            var $loading = $('.loader').hide();
+// //Edit by using  CreateOrUpdate function in EmployeeDetailController
 
-          });
+        $('body').on('click', '.productedit', function () {
+          var id = $(this).data('id');
+          $.get("{{ route('addproduct.index') }}" +'/' + id +'/edit', function (response) {
+          //  console.log(response);
+          $('#submit').val("edit-product"); //
+          $('#prod_id').val(response.id);
+          $('#product_name').val(response.pro_name);
+          $('#product_rate').val(response.unit_price);
+          $('#modal-lg').modal('show');
+  })
+});
 
+// //SoftDeletes function
+//         function softDel(id){
+//             //alert(id);
+//             Swal.fire({
+//           title: 'Are you sure?',
+//           text: "You won't be able to revert this!",
+//           icon: 'error',
+//           showCancelButton: true,
+//           confirmButtonColor: '#3085d6',
+//           cancelButtonColor: '#d33',
+//           confirmButtonText: 'Yes, delete it!'
+//         }).then((result) => {
+//           if (result.value) {
+//               $.get("{{ route('addemployee.index') }}"  +'/' + id +'/destroy', function () {
+//
+//                   Swal.fire({
+//                    title: 'Successfully Deleted!',
+//                    icon: 'success',
+//                    showCancelButton: false,//There won't be any cancle button
+//                    showConfirmButton  : false,
+//                    timer: 1500
+//                  })
+//                  table.draw();
+//                  });
+//           //  alert(id);
+//           }
+//         })
+//           }
+//
+//           //for reset all form data
+//         function resetform(){
+//
+//           $('#addform').trigger("reset");
+//           ok();
+//           //DevTanveerok
+//         }
 
     </script>
     @endsection

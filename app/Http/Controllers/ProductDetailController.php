@@ -6,6 +6,7 @@ use App\ProductDetail;
 use Illuminate\Http\Request;
 use DataTables;
 use DB;
+use Response;
 
 
 class ProductDetailController extends Controller
@@ -30,10 +31,6 @@ class ProductDetailController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -47,11 +44,14 @@ class ProductDetailController extends Controller
           'product_name'=>'required|string|max:255',
           'product_rate'=>'required',
         ]);
-        $product = new ProductDetail;
-        $product->pro_name = $request ['product_name'];
-        $product->unit_price = $request ['product_rate'];
-        $product->save();
-        dd('$product');
+
+        $prod_id = $request->pro_id;
+        $product =ProductDetail::updateOrCreate(['id'=>$prod_id],
+        ['pro_name'=> $request->product_name,
+          'unit_price'=> $request->product_rate
+        ]);
+        dd($product);
+        return Response::json($product);
 
     }
 
@@ -61,10 +61,6 @@ class ProductDetailController extends Controller
      * @param  \App\ProductDetail  $productDetail
      * @return \Illuminate\Http\Response
      */
-    public function show(ProductDetail $productDetail)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -72,9 +68,10 @@ class ProductDetailController extends Controller
      * @param  \App\ProductDetail  $productDetail
      * @return \Illuminate\Http\Response
      */
-    public function edit(ProductDetail $productDetail)
+    public function edit($id)
     {
-        //
+      $product  = ProductDetail::where('id',$id)->first();
+      return Response::json($product);
     }
 
     /**

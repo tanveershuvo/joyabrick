@@ -26,6 +26,7 @@ Route:: get ('/season', function () {
     return view('season_detail');
 })->name('season');
 
+// Add Employee page Routes section
 Route:: get ('/employee_details', function () {
     return view('assign_employee');
 })->name('employee_details');
@@ -41,9 +42,11 @@ Route:: get ('/employee_Paid', function () {
     return view('employee_Paid_Salary');
 })->name('employee_Paid');
 
+
+// Add Product page Routes section
 Route:: get ('/product_avail', function () {
     return view('product_availability');
 })->name('product_avail');
-Route::resource('product','ProductDetailController');
+Route::resource('addproduct','ProductDetailController');
 
 Route::get('lang/{locale}', 'HomeController@lang');
