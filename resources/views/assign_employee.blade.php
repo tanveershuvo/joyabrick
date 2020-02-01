@@ -354,7 +354,7 @@
           $('#addform').trigger("reset");
           ok();
           //new function will be here
-
+            // master code 1
         }
 
     </script>
