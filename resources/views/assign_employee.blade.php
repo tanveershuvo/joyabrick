@@ -1,5 +1,12 @@
 @extends('layouts.admin_layout')
 @section('public_css')
+    <style>
+        div.dataTables_length {
+            padding-top: 5px;
+        }
+
+
+    </style>
 
 @endsection
 
@@ -162,8 +169,8 @@
                    complete: function(){
                       $('.loader').hide();
                    },
+
                    ajax: "{{route('addemployee.index')}}",
-                   dom: 'Bfrtip',
 
                    columns: [
                      {data: 'DT_RowIndex',name:'DT_RowIndex'},
@@ -183,7 +190,11 @@
                               }
                      },
                    ],
-
+                      //Dom using in Datatables  possign the whole table's position
+                      dom: '"<\'row\'<\'col-sm-12 text-center\'Br>>" +\n' +
+                          '"<\'row\'<\'col-sm-12 col-md-6\'l><\'col-sm-12 col-md-6\'f>>" +\n' +
+                          '"<\'row\'<\'col-sm-12\'t>>" +\n' +
+                          '"<\'row\'<\'col-sm-12 col-md-5\'i><\'col-sm-12 col-md-7\'p>>",',
                    //Export Datatables buttons
                    buttons: [
                      {
@@ -236,6 +247,14 @@
                    }
                  },
                    ],
+                      //Length & Searach button
+                      lengthMenu: [
+                          [10, 25, 50, 100],
+                          ['10', '25', '50', '100']
+                      ],
+                      oLanguage: {
+                          "sSearch": "Quick Search:"
+                      },
                    });
                  });
 
