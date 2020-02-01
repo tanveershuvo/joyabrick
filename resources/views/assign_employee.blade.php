@@ -352,6 +352,7 @@
         function resetform(){
 
           $('#addform').trigger("reset");
+          ok();
 
         }
 
