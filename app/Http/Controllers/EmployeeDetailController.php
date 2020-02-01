@@ -29,7 +29,7 @@ class EmployeeDetailController extends Controller
 
         return  Datatables::of($data)
                  ->addIndexColumn()
-                
+
                  ->make(true);
     }
 
@@ -60,7 +60,7 @@ class EmployeeDetailController extends Controller
                  'salary' => $request->salary,
                  'address' => $request->address
                ]);
-    //dd($user);
+
       return Response::json($emp);
     }
 

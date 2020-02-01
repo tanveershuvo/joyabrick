@@ -14,7 +14,7 @@
     <title>BFMS Add Employee</title>
 @endsection
 @section('title')
-    <a class="btn btn-primary"  href="#" role="button" onclick="resetform();"  data-toggle="modal" data-target="#modal-lg"> <i class="fa fa-plus" aria-hidden="true"></i> ADD EMPLOYEE </a>
+    <a class="btn btn-info" role="button" onclick="resetform();"  data-toggle="modal" data-target="#modal-lg"> <i class="fa fa-plus" aria-hidden="true"></i> ADD NEW EMPLOYEE </a>
 @endsection
 @section('breadcrumb_list')
     <li class="breadcrumb-item active">Employee</li>
@@ -184,9 +184,9 @@
                        orderable: false,
                        searchable: false,
                        "render": function ( data, type, row, meta ) {
-                        return '<button class="edit btn btn-info fas fa-edit " data-toggle="tooltip" data-placement="top" title="Edit" data-id="'+ data +'"> </button> '
+                        return '<button class="edit btn btn-outline-info fas fa-edit " data-toggle="tooltip" data-placement="top" title="Edit" data-id="'+ data +'"> </button> '
                                 +
-                                '<button class="btn btn-danger fas fa-trash-alt" onclick="softDel('+ data +');" data-id="'+ data +'"> </button>'
+                                '<button class="btn btn-outline-danger fas fa-trash-alt" onclick="softDel('+ data +');" data-id="'+ data +'"> </button>'
                               }
                      },
                    ],
@@ -277,8 +277,7 @@
                 success: function (response) {
                     $('#addform').trigger("reset");
                     $('#modal-lg').modal('hide');
-                    //$("#msg").css("display", "");
-                   // $("#msg").fadeOut(4000);
+                   // toastr.success(data.message, data.title);
                     table.draw();
                 },
                 error : function (xhr) {
