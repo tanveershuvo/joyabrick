@@ -92,8 +92,12 @@ class ProductDetailController extends Controller
      * @param  \App\ProductDetail  $productDetail
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ProductDetail $productDetail)
+    public function destroy($id)
     {
-        //
+        $prod_id = ProductDetail::findOrFail($id)->delete();
+        return response()->json();
+
+        // $emp = EmployeeDetail::findOrFail($id)->delete();
+        // return response()->json();
     }
 }

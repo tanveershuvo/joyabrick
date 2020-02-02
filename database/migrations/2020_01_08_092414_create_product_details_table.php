@@ -19,6 +19,7 @@ class CreateProductDetailsTable extends Migration
             $table->double('unit_price',10,2);
             $table->integer('available')->default(0);
             $table->integer('com_id')->default(0);
+            $table->softDeletes();
             //$table->timestamps();
         });
     }

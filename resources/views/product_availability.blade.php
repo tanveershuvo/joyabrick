@@ -217,41 +217,41 @@
 });
 
 // //SoftDeletes function
-//         function softDel(id){
-//             //alert(id);
-//             Swal.fire({
-//           title: 'Are you sure?',
-//           text: "You won't be able to revert this!",
-//           icon: 'error',
-//           showCancelButton: true,
-//           confirmButtonColor: '#3085d6',
-//           cancelButtonColor: '#d33',
-//           confirmButtonText: 'Yes, delete it!'
-//         }).then((result) => {
-//           if (result.value) {
-//               $.get("{{ route('addemployee.index') }}"  +'/' + id +'/destroy', function () {
-//
-//                   Swal.fire({
-//                    title: 'Successfully Deleted!',
-//                    icon: 'success',
-//                    showCancelButton: false,//There won't be any cancle button
-//                    showConfirmButton  : false,
-//                    timer: 1500
-//                  })
-//                  table.draw();
-//                  });
-//           //  alert(id);
-//           }
-//         })
-//           }
-//
-//           //for reset all form data
-//         function resetform(){
-//
-//           $('#addform').trigger("reset");
-//           ok();
-//           //DevTanveerok
-//         }
+        function softDel(id){
+            //alert(id);
+            Swal.fire({
+          title: 'Are you sure?',
+          text: "You won't be able to revert this!",
+          icon: 'error',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+          if (result.value) {
+              $.get("{{ route('addproduct.index') }}"  +'/' + id +'/destroy', function () {
+
+                  Swal.fire({
+                   title: 'Successfully Deleted!',
+                   icon: 'success',
+                   showCancelButton: false,//There won't be any cancle button
+                   showConfirmButton  : false,
+                   timer: 1500
+                 })
+                 table.draw();
+                 });
+          //  alert(id);
+          }
+        })
+          }
+
+          //for reset all form data
+        function resetform(){
+
+          $('#productTable').trigger("reset");
+          ok();
+          //DevTanveerok
+        }
 
     </script>
     @endsection

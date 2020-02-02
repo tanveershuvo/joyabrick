@@ -86,8 +86,7 @@ class EmployeeDetailController extends Controller
      */
     public function destroy($id)
     {
-          $emp = EmployeeDetail::findOrFail($id)->delete();
-
+        $emp = EmployeeDetail::findOrFail($id)->delete();
         return response()->json();
     }
 }
