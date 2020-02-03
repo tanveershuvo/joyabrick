@@ -22,15 +22,18 @@
 
   <!-- DataTables -->
   <link rel="stylesheet" href="{{asset('adminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.css')}}">
-    <link rel="stylesheet" href="https://cdn.datatables.net/fixedcolumns/3.3.0/css/fixedColumns.dataTables.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/fixedcolumns/3.3.0/css/fixedColumns.dataTables.min.css">
 
-
+  <link href='http://mdminhazulhaque.github.io/solaimanlipi/css/solaimanlipi.css' rel='stylesheet' type='text/css'>
 <!-- sweetalert2 -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-  <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css">
-  <script src=//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
 
  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+ <style media="screen">
+ .content-wrapper {
+  font-family: 'Merriweather','SolaimanLipi',sans-serif;
+}
+ </style>
   @yield('public_css')
 </head>

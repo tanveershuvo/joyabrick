@@ -209,15 +209,17 @@
                        title: 'Employee details <?php $timestamp = date('m-d-Y h:i A');echo $timestamp;?>',
                        text: '<span style="color:black"><i class="fas fa-file-excel"></i> Excel</span>',
                        className: "btn btn-outline-warning",
+
                        exportOptions: {
                           columns: [0, 1, 2, 3, 4, 5,6]
                       }
                     },
                     {
                       extend: 'pdfHtml5',
-                      title: 'Employee details <?php $timestamp = date('m-d-Y h:i A');echo $timestamp;?>',
-                      text: '<span style="color:black"><i class="fas fa-file-pdf"></i> Pdf</span>',
+                      title: '@lang('home.name') <?php $timestamp = date('m-d-Y h:i A');echo $timestamp;?>',
+                      text: '<span style="color:black"><i class="fas fa-file-pdf"></i> @lang('home.name')</span>',
                       className: "btn btn-outline-warning",
+                       sCharSet: "utf-8",
                       exportOptions: {
                          columns: [0, 1, 2, 3, 4, 5,6]
                      },
@@ -267,7 +269,7 @@
             var err_id = $(this).attr('id');
 
             $('#' + err_id).closest('.form-control').removeClass('is-invalid');
-            $('#' + err_id).closest('.error-block').remove();
+            $('#' + err_id).closest('.error').find('.error-block').remove();
         });
         function ok(){
             formdata = $('#addform');
