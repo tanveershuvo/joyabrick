@@ -81,9 +81,9 @@ class ProductDetailController extends Controller
      * @param  \App\ProductDetail  $productDetail
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ProductDetail $productDetail)
+    public function update(Request $request)
     {
-        //
+        dd("ok");
     }
 
     /**

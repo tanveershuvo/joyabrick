@@ -49,5 +49,6 @@ Route:: get ('/product_avail', function () {
 })->name('product_avail');
 Route::resource('addproduct','ProductDetailController');
 Route::get('addproduct/{id}/destroy', 'ProductDetailController@destroy');
+Route::get('addproduct/{id}/update', 'ProductDetailController@update');
 //For Multi Language
 Route::get('lang/{locale}', 'HomeController@lang');

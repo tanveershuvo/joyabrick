@@ -135,11 +135,11 @@
                      {data: 'pro_name'},
                      {data: 'unit_price'},
                      {data: 'available'},
-                     {   data: 'id',
+                     {   data: 'available',
                        orderable: false,
                        searchable: false,
                        "render": function ( data, type, row, meta ) {
-                        return '<button class="btn btn-info fas fa-info " data-id="'+ data +'"> </button> '
+                        return '<button class="btn btn-outline-danger" onclick="addAmount('+row.id+','+data+');" ><i class="fa fa-plus" aria-hidden="true"></i> Add Amount</button> '
                               }
                      },
                      {   data: 'id',
@@ -185,7 +185,7 @@
                 },
                 error : function (xhr) {
                     var res = xhr.responseJSON;
-                   //console.log(res)
+                   //console.log(formdatares)
                     if ($.isEmptyObject(res) == false) {
                         $.each(res.errors, function (key, value) {
                             //console.log(value)
@@ -252,6 +252,45 @@
           ok();
           //DevTanveerok
         }
+
+
+        //Add Amount
+      async function addAmount(id,data){
+        //alert(id);
+          const { value: number } = await Swal.fire({
+          input: 'text',
+          title: 'Input email address',
+          inputPlaceholder: 'Type your message here',
+          inputValidator: (value) => {
+            if (!value) {
+              return 'You need to write something!'
+            }
+            if (isNaN(value)) {
+              return 'Inpur Must Be number!'
+            }
+            if (value){
+              var b = parseInt(data);
+              var c = parseInt(value);
+              var a = b + c;
+              //console.log(a,b,c);
+
+              $.ajax({
+                  url : "{{route('addproduct')}}",
+                  headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                  type: "POST",
+                  data : {id:id, data:data},
+                  success: function (response) {
+
+                  }
+                })
+
+            }
+          },
+          showCancelButton: true
+        })
+
+
+      }
 
     </script>
     @endsection
