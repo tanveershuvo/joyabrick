@@ -2,8 +2,8 @@
 return[
   // Tap page title
   'brickhome'=>'Home',
-  'bfms_add_employee'=>'BFMS Add Employee',
-  'bfms_add_product'=>'BFMS Add Product',
+  'bfms_add_employee'=>'BFMS | Add Employee',
+  'bfms_add_product'=>'BFMS | Add Product',
 
 
 //    Navbar name

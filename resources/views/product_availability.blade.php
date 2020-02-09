@@ -275,8 +275,11 @@
               //console.log(a,b,c);
 
               $.ajax({
-                  url : "{{route('addproduct')}}",
-                  headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+
+				   url:"{{url('productamount')}}",
+				   headers: {
+ 					  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+ 				  },
                   type: "POST",
                   data : {id:id, data:data},
                   success: function (response) {
@@ -288,7 +291,6 @@
           },
           showCancelButton: true
         })
-
 
       }
 
