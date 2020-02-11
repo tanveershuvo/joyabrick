@@ -8,8 +8,6 @@
         table.dataTable tbody td {
             white-space: nowrap;
         }
-
-
     </style>
 
 @endsection
@@ -18,7 +16,7 @@
     <title> @lang('home.bfms_add_product')</title>
 @endsection
 @section('title')
-    <a class="btn btn-info" role="button" onclick="resetform();"  data-toggle="modal" data-target="#modal-lg"> <i class="fa fa-plus" aria-hidden="true"></i> @lang('home.add_new_product') </a>
+    <a class="btn btn-info" role="button"   data-toggle="modal" data-target="#modal-lg"> <i class="fa fa-plus" aria-hidden="true"></i> @lang('home.add_new_product') </a>
 @endsection
 @section('breadcrumb_list')
     <li class="breadcrumb-item active">@lang('home.product')</li>
@@ -101,7 +99,7 @@
                     </form>
                 </div>
                 <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-danger" onclick="resetform();" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                     <button type="button" id="submit" class="btn btn-success" >Save </button>
                 </div>
             </div>
@@ -117,7 +115,6 @@
     <!-- AdminLTE for demo purposes -->
     <script>
         //to stack all form data in a variable
-
                 var table = '';
                  $(function () {
                    $.ajaxSetup({
@@ -128,8 +125,7 @@
                   table = $('#productTable').DataTable({
                    processing: true,
                    serverSide: true,
-                   ajax: "{{route('showAllProduct')}}",
-
+                   ajax: "{{route('addproduct.index')}}",
                    columns: [
                      {data: 'DT_RowIndex'},
                      {data: 'pro_name'},
@@ -154,107 +150,127 @@
                      ]
                      });
                    });
-
-
- 				  // //Inser data
- 				          $(document).on('keyup', '.form-control', function() {
- 				              var err_id = $(this).attr('id');
-
- 				              $('#' + err_id).closest('.form-control').removeClass('is-invalid');
- 				              $('#' + err_id).closest('.error-block').remove();
- 				          });
- 				          function ok(){
- 				              formdata = $('#addProductform');
- 				              formdata.find('.error-block').remove();
- 				              formdata.find('.form-control').removeClass('is-invalid');
- 				          }
- 				  		$.ajaxSetup({
- 				  	   headers: {
- 				  		   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
- 				  	   }
- 				     			});
- 				          // ajax insertion and error handling
- 				          $('#submit').click(function (event) {
- 				              event.preventDefault();
- 				              ok();
- 				              $.ajax({
- 				                   url : "{{route('addproduct')}}",
- 				                  type: "POST",
- 				                  data : formdata.serialize(),
- 				                  success: function (response) {
- 				                      $('#addProductform').trigger("reset");
- 				                      $('#modal-lg').modal('hide');
- 				                     // toastr.success(data.message, data.title);
- 				                      table.draw();
- 				                  },
- 				                  error : function (xhr) {
- 				                      var res = xhr.responseJSON;
- 				                     //console.log(formdatares)
- 				                      if ($.isEmptyObject(res) == false) {
- 				                          $.each(res.errors, function (key, value) {
- 				                              //console.log(value)
- 				                              $('#' + key)
- 				                                  .closest('.error')
- 				                                  .append('<span class="error-block"  style="color:red"><strong>' + value + '</strong></span>');
- 				                              $('#' + key)
- 				                                  .closest('.form-control')
- 				                                  .addClass('is-invalid');
- 				                          });
-
- 				                      }
- 				                  }
- 				              })
- 				          });
-
-						  // //Edit by using  CreateOrUpdate function in EmployeeDetailController
-
-						          $('body').on('click', '.productedit', function () {
-						            var id = $(this).data('id');
-						            $.get("{{ url('/updateProduct') }}" +'/' + id , function (response) {
-						            //  console.log(response);
-						            $('#submit').val("edit-product"); //
-						            $('#prod_id').val(response.id);
-						            $('#product_name').val(response.pro_name);
-						            $('#product_rate').val(response.unit_price);
-						            $('#modal-lg').modal('show');
-						    })
-						  });
-
-						 // SoftDeletes function
-		 				          function softDel(id){
-		 				              //alert(id);
-		 				              Swal.fire({
-		 				            title: 'Are you sure?',
-		 				            text: "You won't be able to revert this!",
-		 				            icon: 'error',
-		 				            showCancelButton: true,
-		 				            confirmButtonColor: '#3085d6',
-		 				            cancelButtonColor: '#d33',
-		 				            confirmButtonText: 'Yes, delete it!'
-		 				          }).then((result) => {
-		 				            if (result.value) {
-		 				                $.get("{{ url('/deleteProduct') }}"  +'/' + id , function () {
-
-		 				                    Swal.fire({
-		 				                     title: 'Successfully Deleted!',
-		 				                     icon: 'success',
-		 				                     showCancelButton: false,//There won't be any cancle button
-		 				                     showConfirmButton  : false,
-		 				                     timer: 1500
-		 				                   })
-		 				                   table.draw();
-		 				                   });
-		 				            //  alert(id);
-		 				            }
-		 				          })
-							  }
-
-							//for reset all form data
-							  function resetform(){
-								$('#addProductform').trigger("reset");
-								ok();
-								//DevTanveerok
-							  }
-
+//Inser data
+        $(document).on('keyup', '.form-control', function() {
+            var err_id = $(this).attr('id');
+            $('#' + err_id).closest('.form-control').removeClass('is-invalid');
+            $('#' + err_id).closest('.error-block').remove();
+        });
+        function ok(){
+            formdata = $('#addProductform');
+            formdata.find('.error-block').remove();
+            formdata.find('.form-control').removeClass('is-invalid');
+        }
+        // ajax insertion and error handling
+        $('#submit').click(function (event) {
+            event.preventDefault();
+            ok();
+            $.ajax({
+                url : "{{route('addproduct.store')}}",
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                type: "POST",
+                data : formdata.serialize(),
+                success: function (response) {
+                    $('#addProductform').trigger("reset");
+                    $('#modal-lg').modal('hide');
+                   // toastr.success(data.message, data.title);
+                    table.draw();
+                },
+                error : function (xhr) {
+                    var res = xhr.responseJSON;
+                   //console.log(formdatares)
+                    if ($.isEmptyObject(res) == false) {
+                        $.each(res.errors, function (key, value) {
+                            //console.log(value)
+                            $('#' + key)
+                                .closest('.error')
+                                .append('<span class="error-block"  style="color:red"><strong>' + value + '</strong></span>');
+                            $('#' + key)
+                                .closest('.form-control')
+                                .addClass('is-invalid');
+                        });
+                    }
+                }
+            })
+        });
+// //Edit by using  CreateOrUpdate function in EmployeeDetailController
+        $('body').on('click', '.productedit', function () {
+          var id = $(this).data('id');
+          $.get("{{ route('addproduct.index') }}" +'/' + id +'/edit', function (response) {
+          //  console.log(response);
+          $('#submit').val("edit-product"); //
+          $('#prod_id').val(response.id);
+          $('#product_name').val(response.pro_name);
+          $('#product_rate').val(response.unit_price);
+          $('#modal-lg').modal('show');
+  })
+});
+// //SoftDeletes function
+        function softDel(id){
+            //alert(id);
+            Swal.fire({
+          title: 'Are you sure?',
+          text: "You won't be able to revert this!",
+          icon: 'error',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+          if (result.value) {
+              $.get("{{ route('addproduct.index') }}"  +'/' + id +'/destroy', function () {
+                  Swal.fire({
+                   title: 'Successfully Deleted!',
+                   icon: 'success',
+                   showCancelButton: false,//There won't be any cancle button
+                   showConfirmButton  : false,
+                   timer: 1500
+                 })
+                 table.draw();
+                 });
+          //  alert(id);
+          }
+        })
+          }
+          //for reset all form data
+        function resetform(){
+          $('#productTable').trigger("reset");
+          ok();
+          //DevTanveerok
+        }
+        //Add Amount
+      async function addAmount(id,data){
+        //alert(id);
+          const { value: number } = await Swal.fire({
+          input: 'text',
+          title: 'Input email address',
+          inputPlaceholder: 'Type your message here',
+          inputValidator: (value) => {
+            if (!value) {
+              return 'You need to write something!'
+            }
+            if (isNaN(value)) {
+              return 'Inpur Must Be number!'
+            }
+            if (value){
+              var b = parseInt(data);
+              var c = parseInt(value);
+              var a = b + c;
+              //console.log(a,b,c);
+              $.ajax({
+				   url:"{{url('productamount')}}",
+				   headers: {
+ 					  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+ 				  },
+                  type: "POST",
+                  data : {id:id, data:data},
+                  success: function (response) {
+                  }
+                })
+            }
+          },
+          showCancelButton: true
+        })
+      }
     </script>
     @endsection
