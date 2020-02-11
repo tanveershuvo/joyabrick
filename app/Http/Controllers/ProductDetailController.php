@@ -100,4 +100,98 @@ class ProductDetailController extends Controller
         // $emp = EmployeeDetail::findOrFail($id)->delete();
         // return response()->json();
     }
+
+
+
+	 				  // // //Edit by using  CreateOrUpdate function in EmployeeDetailController
+	 				  //
+	 				  //         $('body').on('click', '.productedit', function () {
+	 				  //           var id = $(this).data('id');
+	 				  //           $.get("{{ route('addproduct.index') }}" +'/' + id +'/edit', function (response) {
+	 				  //           //  console.log(response);
+	 				  //           $('#submit').val("edit-product"); //
+	 				  //           $('#prod_id').val(response.id);
+	 				  //           $('#product_name').val(response.pro_name);
+	 				  //           $('#product_rate').val(response.unit_price);
+	 				  //           $('#modal-lg').modal('show');
+	 				  //   })
+	 				  // });
+	 				  //
+	 				  // // //SoftDeletes function
+	 				  //         function softDel(id){
+	 				  //             //alert(id);
+	 				  //             Swal.fire({
+	 				  //           title: 'Are you sure?',
+	 				  //           text: "You won't be able to revert this!",
+	 				  //           icon: 'error',
+	 				  //           showCancelButton: true,
+	 				  //           confirmButtonColor: '#3085d6',
+	 				  //           cancelButtonColor: '#d33',
+	 				  //           confirmButtonText: 'Yes, delete it!'
+	 				  //         }).then((result) => {
+	 				  //           if (result.value) {
+	 				  //               $.get("{{ route('addproduct') }}"  +'/' + id +'/destroy', function () {
+	 				  //
+	 				  //                   Swal.fire({
+	 				  //                    title: 'Successfully Deleted!',
+	 				  //                    icon: 'success',
+	 				  //                    showCancelButton: false,//There won't be any cancle button
+	 				  //                    showConfirmButton  : false,
+	 				  //                    timer: 1500
+	 				  //                  })
+	 				  //                  table.draw();
+	 				  //                  });
+	 				  //           //  alert(id);
+	 				  //           }
+	 				  //         })
+	 				  //           }
+	 				  //
+	 				  //           //for reset all form data
+	 				  //         function resetform(){
+	 				  //
+	 				  //           $('#productTable').trigger("reset");
+	 				  //           ok();
+	 				  //           //DevTanveerok
+	 				  //         }
+	 				  //
+	 				  //
+	 				  //         //Add Amount
+	 				  //       async function addAmount(id,data){
+	 				  //         //alert(id);
+	 				  //           const { value: number } = await Swal.fire({
+	 				  //           input: 'text',
+	 				  //           title: 'Input email address',
+	 				  //           inputPlaceholder: 'Type your message here',
+	 				  //           inputValidator: (value) => {
+	 				  //             if (!value) {
+	 				  //               return 'You need to write something!'
+	 				  //             }
+	 				  //             if (isNaN(value)) {
+	 				  //               return 'Inpur Must Be number!'
+	 				  //             }
+	 				  //             if (value){
+	 				  //               var b = parseInt(data);
+	 				  //               var c = parseInt(value);
+	 				  //               var a = b + c;
+	 				  //               //console.log(a,b,c);
+	 				  //
+	 				  //               $.ajax({
+	 				  //
+	 				  // 				   url:"{{route('addproduct.proup')}}",
+	 				  // 				  //  headers: {
+	 				  //  					//   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+	 				  //  				  // },
+	 				  //                   type: 'POST',
+	 				  //                   data : {id:id, data:data},
+	 				  //                   success: function (response) {
+	 				  //
+	 				  //                   }
+	 				  //                 })
+	 				  //
+	 				  //             }
+	 				  //           },
+	 				  //           showCancelButton: true
+	 				  //         })
+	 				  //
+	 				        }
 }

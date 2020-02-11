@@ -46,14 +46,15 @@
 
 	// Add Product page Routes section
 	Route::group(['middleware' => 'auth'], function(){
-	Route:: get ('/product_avail', function () {
-	    return view('product_availability');
-	})->name('product_avail');
-	Route::resource('addproduct','ProductDetailController');
-	Route::get('addproduct/{id}/destroy', 'ProductDetailController@destroy');
-	//Route::get('addproduct/{id}/update', 'ProductDetailController@update');
-	Route::POST('productamount','ProductDetailController@update');
-    });
+
+		Route:: get ('/product_avail', function () { return view('product_availability');});
+		Route::post('addproduct', 'ProductDetailsControlller@store')->name('addproduct');
+		Route::get('/showAllProduct', ['as' => 'showAllProduct', 'uses'=>'ProductDetailsControlller@index']);
+
+		Route::get('/updateProduct/{id}', ['as' => 'updateProduct/{id}', 'uses'=>'ProductDetailsControlller@edit']);
+		Route::get('/deleteProduct/{id}', ['as' => 'deleteProduct/{id}', 'uses'=>'ProductDetailsControlller@destroy']);
+
+	});
 
 
 	//For Multi Language
