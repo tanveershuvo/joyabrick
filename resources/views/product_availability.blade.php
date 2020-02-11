@@ -253,7 +253,7 @@
 							  function resetform(){
 								$('#addProductform').trigger("reset");
 								ok();
-								//DevTanveerok
+							
 							  }
 
     </script>
